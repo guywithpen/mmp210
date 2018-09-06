@@ -1,0 +1,16 @@
+body { 
+	background-color: #532684;
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 18px;
+}
+
+h1 { color: #ffddff; }
+
+p { color: white; }
+
+a { color: green; }
+a:hover { color: blue; }
+
+
+
+}
