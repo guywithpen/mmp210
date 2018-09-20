@@ -11,6 +11,6 @@ p { color: white; }
 a { color: green; }
 a:hover { color: blue; }
 
-
-
+img {
+	width: 40%;
 }
