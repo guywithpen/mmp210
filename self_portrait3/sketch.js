@@ -5,35 +5,35 @@ function setup() {
 function draw() {
     
     // draw line between the mouse position and origin point
-	var x = mouseX;
-	var y = mouseY;
-	line(x, y, 0, 0);
+	//var x = mouseX;
+	//var y = mouseY;
+	//line(x, y, 0, 0);
 
 	// draw circle at mouse position
-    fill ("plum")
-	ellipse(x, y, 40);
+   // fill ("plum")
+	//ellipse(x, y, 40);
 
     
     
 	//background(220);
 	//head var
     var skinColor = "#b35900"; 
-    var headX = 100;
-    var headY = 90;
+    var headX = mouseX; // 100;
+    var headY = mouseY; // 90;
     var headW = 220;
     var headH = 200;
 
     //ear var
     var skinColor = "#b35900"; 
-    var earX =250;
-    var earY = 160;
+    var earX = headX + 150;  // 250;
+    var earY = headY + 70; // 160;
     var earW = 110;
     var earH = 80;
 
     //right eye var
     var reColor = "#1a0600"; 
-    var reX = 220;
-    var reY = 180;
+    var reX = headX + 120; // 220;
+    var reY = headY + 90; // 180;
     var reW = 40;
     var reH = 70;
 
