@@ -39,22 +39,22 @@ function draw() {
 
     //left eye var
     var leColor = "#1a0600"; 
-    var leX = 140;
-    var leY = 180;
+    var leX = headX + 40; //140;
+    var leY = headY + 90 //180;
     var leW = 40;
     var leH = 70;
 
     //hair var
     var hairColor = "#1a0600"; 
-    var hairX = 80;
-    var hairY = 30;
+    var hairX = headX - 20; //80;
+    var hairY = headY - 70; //30;
     var hairW = 270;
     var hairH = 90;
 
     //maw var
     var mawColor = "#a03120"; 
-    var mawX = 180;
-    var mawY = 250;
+    var mawX = headX + 80; //180;
+    var mawY = headY + 150; //250;
     var mawW = 90;
     var mawH = 20;
 
