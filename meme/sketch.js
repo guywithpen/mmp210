@@ -1,7 +1,7 @@
-var bird; // global
+var boi; // global
 
 function preload() {
-    bird = loadImage("bird.jpg");
+    boi = loadImage("boi.png");
 }
 
 function setup() {
@@ -11,12 +11,14 @@ function setup() {
 function draw() {
     background(0);
     
-    image(bird, 0, 0, width/2, height);
-    image(bird, width/2, 0, width/2, height);
+    image(boi, 0, 0, width , height);
+    //image(boi, width/2, 0, width/2, height);
     
     fill(255);
-    textAlign(CENTER, CENTER);
-    textSize(100);
+//    textAlign(CENTER, CENTER);
+    textSize(50);
     textFont("Comic Sans MS");
-    text("MEME", width/2, height/2);
+    text("N E R O  S L A I N", 10, 70);
+    
+    text("5 HRS REMAIN ", 70, 470);
 }
