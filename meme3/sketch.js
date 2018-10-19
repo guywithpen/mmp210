@@ -25,27 +25,19 @@ function draw() {
     text("5 HRS REMAIN ", 70, 470);
     
     	
-	/* draw quandrant lines */
-	strokeWeight(1);
-	stroke("white");
-	line(width/2, 0, width/2, height);
-	line(0, height/2, width, height/2);
-
-	fill("white");
-
-	/* for each quandrant, determine of mouse 
-		is inside bounds */	
-	if (mouseX > width/2 && mouseY > height/2) {
-		rect(width/2, height/2, width, height);
-        image(yeet, 250, 250, width/2 , height/2);
-	} else if (mouseX < width/2 && mouseY > height/2) {
-		rect(0, height/2, width/2, height);
-         image(yeet, 0, 250, width/2 , height/2);
-	} else if (mouseX > width/2 && mouseY < height/2) {
-		rect(width/2, 0, width, height/2);
-        image(yeet, 250, 0, width/2 , height/2);
-	} else {
-		rect(0, 0, width/2, height/2);
-        image(yeet, 0, 0, width/2 , height/2);
-	}
+function setup() {
+	createCanvas(640, 360);
+	background(220);
+	rectMode(CENTER);
+	
+	ellipse(40, 40, 20);
+	rect(60, 40, 20, 20);
+	
+	scale(2);
+	ellipse(40, 40, 20);
+	rect(60, 40, 20, 20);
+	
+	scale(3);
+	ellipse(40, 40, 20);
+	rect(60, 40, 20, 20);
 }
