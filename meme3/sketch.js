@@ -7,8 +7,8 @@ var nero;
 function preload() {
     boi = loadImage("boi.png");
     yeet = loadImage("yeet.png");
-    timbs = loadImage("timbs");
-    nero = loadImage("nero");
+    timbs = loadImage("timbs.png");
+    nero = loadImage("nero.png");
 }
 
 function setup() {
@@ -18,7 +18,8 @@ function setup() {
 function draw() {
     background(0);
     
-    var r = random(2, 30);
+    var r = random(60, 80);
+    var r2 = random(100, 110)
 
     image(boi, 0, 0, width , height);
     //image(boi, width/2, 0, width/2, height);
@@ -31,9 +32,9 @@ function draw() {
     
     text("5 HRS REMAIN ", 70, 470);
     
-    image(timbs, 100, r, 100, 100);
+    image(timbs, 200, r, 300, 300);
 
-    image(nero, );
+    image(nero, r2, 200, 300, 300);
     }
     	
 // 	 draw quandrant lines 
