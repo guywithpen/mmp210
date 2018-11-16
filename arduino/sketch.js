@@ -1,6 +1,18 @@
 var serial;
-var portName = "COMS7";
+var portName = "COM3";
 var sensorValue;
+var boi; // global
+var yeet;
+var timbs;
+var nero;
+
+
+function preload() {
+    boi = loadImage("boi.png");
+    yeet = loadImage("yeet.png");
+    timbs = loadImage("timbs.png");
+    nero = loadImage("nero.png");
+}
 
 function setup() {
     createCanvas(640, 360);
@@ -49,8 +61,11 @@ function draw() {
     var y = map(sensorValue, 0, 1023, height, 0);
     
     // sun
-    noStroke();
-    fill('gold');
-    ellipse(320, y, 50);
-    
+    //noStroke();
+    //fill('gold');
+   // ellipse(320, y, 50);
+      image(timbs, 200, y, 300, 300);
+
+
+
 }
