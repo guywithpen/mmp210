@@ -16,6 +16,7 @@ var gameMusic;
 var gameOverMusic;
 var jumpSound;
 var runner;
+//var mordy:
 
 function setup() {
     createCanvas(840, 390);
@@ -31,6 +32,7 @@ function setup() {
 }
 
 function preload() {
+   // mordy = loadImage("mordy.png");
 
 }
 
