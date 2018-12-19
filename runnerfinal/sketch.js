@@ -16,12 +16,14 @@ var gameMusic;
 var gameOverMusic;
 var jumpSound;
 var runner;
-//var mordy:
+var wave;
+var mordy;
 
 function setup() {
     createCanvas(840, 390);
     runner = createSprite(50, 100, 25, 40);
     runner.depth = 4;
+    runner.addImage(mordy); 
 //    runner.addAnimation('jump', jumpingAnimation);
 //    runner.addAnimation('run', runningAnimation);
     runner.setCollider("rectangle", 0, 0, 10, 41);
@@ -32,12 +34,12 @@ function setup() {
 }
 
 function preload() {
-   // mordy = loadImage("mordy.png");
-
+    mordy = loadImage("mordy.png");
+    wave = loadImage("wave.png");
 }
 
 function draw() {
-    if (!gameOver) {
+    if (!gameOver) { 
         background(200);
         drawSprites();
 //        addNewPlatforms();
