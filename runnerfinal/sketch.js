@@ -3,7 +3,7 @@ var currentBackgroundTilePosition;
 var backgroundTiles;
 var runnerSpeed = 15;
 var jumpPower = 15;
-var gravity = 0.5;
+var gravity = 1;
 var currentPlatformLocation;
 var platformsGroup;
 var gameOver = false;
@@ -30,7 +30,7 @@ var isPressed = false;
 
 function setup() {
    
-    createCanvas(840, 390);
+    createCanvas(840, 500);
     runner = createSprite(50, 100, 25, 40);
     runner.depth = 4;
     runner.addImage(mordy); 
@@ -76,7 +76,9 @@ function draw() {
         fallCheck();
         
         updateSprites(false);
-        
+        if (runner.position.y < 0){
+            runner.position.y = 0;
+        }
         	
 //	for (var i = 0; i < 10; i++){
 //	ellipse(i*width/10, 100, 100);
@@ -90,7 +92,7 @@ function draw() {
 
     if (gameOver) {
             gameOverText();
-            if (keyWentDown(UP_ARROW)) {
+            if (isPressed) {
             newGame();
             updateScore();  
                 runner.velocity.y = 0;
@@ -128,15 +130,15 @@ function jumpDetection() {
 ////        runner.animation.rewind();
 //        runner.velocity.y = -jumpPower;
 //    }
-        if (sensorValue > 200 && isPressed  == false) {
+        if (sensorValue > 150 && isPressed) {
             
 //        runner.changeAnimation("jump");
 //        runner.animation.rewind();
         runner.velocity.y = -jumpPower;
-            isPressed = true;
+//            isPressed = true;
     }
-    if (sensorValue < 10)
-    {isPressed = false;}
+//    if (sensorValue < 10)
+//    {isPressed = false;}
 }
 
 function removeOldPlatforms() {
@@ -257,5 +259,14 @@ function serialEvent() {
         return;
     }
     sensorValue = currentString;
+            if (sensorValue > 130 && isPressed  == false) {
+            
+//        runner.changeAnimation("jump");
+//        runner.animation.rewind();
+//        runner.velocity.y = -jumpPower;
+            isPressed = true;
+    }
+    if (sensorValue < 10)
+    {isPressed = false;}
 }
 
