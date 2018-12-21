@@ -3,7 +3,7 @@ var currentBackgroundTilePosition;
 var backgroundTiles;
 var runnerSpeed = 15;
 var jumpPower = 15;
-var gravity = 1;
+var gravity = 0.5;
 var currentPlatformLocation;
 var platformsGroup;
 var gameOver = false;
@@ -16,29 +16,51 @@ var gameMusic;
 var gameOverMusic;
 var jumpSound;
 var runner;
+var floorColliderObject;
 var wave;
 var mordy;
+var object;
+var x = 100;
+var speed = 5;
+var serial;
+var portName = "COM8";
+var sensorValue;
+var isPressed = false;
+
 
 function setup() {
+   
     createCanvas(840, 390);
     runner = createSprite(50, 100, 25, 40);
     runner.depth = 4;
     runner.addImage(mordy); 
 //    runner.addAnimation('jump', jumpingAnimation);
 //    runner.addAnimation('run', runningAnimation);
-    runner.setCollider("rectangle", 0, 0, 10, 41);
+    //runner.setCollider("rectangle", 0, 0, 10, 41);
+     runner.setDefaultCollider();
+//    floorColliderObject.setCollider("rectangle", 0,0,width,100);
     platformsGroup = new Group;
     currentBackgroundTilePosition = -width;
     backgroundTiles = new Group;
 //    gameMusic.play();
+      serial = new p5.SerialPort();
+    serial.on('connected', serverConnected);
+    serial.on('open', portOpen);
+    serial.on('data', serialEvent);
+    serial.on('error', serialError);
+    serial.on('close', portClose);
+    
+    serial.open(portName);
 }
 
 function preload() {
-    mordy = loadImage("mordy.png");
-    wave = loadImage("wave.png");
+    mordy = loadImage("smolmord.png");
+    wave = loadImage("smolwave.png");
 }
 
 function draw() {
+    console.log(sensorValue);
+     //console.log(runner.position.y);
     if (!gameOver) { 
         background(200);
         drawSprites();
@@ -52,15 +74,27 @@ function draw() {
         addNewBackgroundTiles();
         removeOldBackgroundTiles();
         fallCheck();
-        gameOverText();
+        
         updateSprites(false);
-        if (keyWentDown(UP_ARROW)) {
-            newGame();
-            updateScore();
-        }
+        
+        	
+//	for (var i = 0; i < 10; i++){
+//	ellipse(i*width/10, 100, 100);
+//	}
+//	x += speed;
+//	if (x > width/5) {
+//		x = 0;
+//	}
+        
     }
 
     if (gameOver) {
+            gameOverText();
+            if (keyWentDown(UP_ARROW)) {
+            newGame();
+            updateScore();  
+                runner.velocity.y = 0;
+            runner.position.y=0;}
 
     }
 }
@@ -72,26 +106,37 @@ function addNewPlatforms() {
         platform.collide(runner);
         currentPlatformLocation += currentPlatformLength;
 //        platform.addAnimation('default', platformBackground);
+        platform.addImage(wave);
         platform.depth = 3;
         platformsGroup.add(platform);
     }
 }
 
 function solidGround() {
+    console.log("collision");  
     runner.velocity.y = 0;
 //    runner.changeAnimation("run");
-    if (runner.touching.right) {
+    if (runner.touching.bottom) {
         runner.velocity.x = 0;
-        runner.velocity.y += 30;
+        runner.velocity.y = 0;
     }
 }
 
 function jumpDetection() {
-    if (keyWentDown(UP_ARROW)) {
+//    if (keyWentDown(UP_ARROW)) {
+////        runner.changeAnimation("jump");
+////        runner.animation.rewind();
+//        runner.velocity.y = -jumpPower;
+//    }
+        if (sensorValue > 200 && isPressed  == false) {
+            
 //        runner.changeAnimation("jump");
 //        runner.animation.rewind();
         runner.velocity.y = -jumpPower;
+            isPressed = true;
     }
+    if (sensorValue < 10)
+    {isPressed = false;}
 }
 
 function removeOldPlatforms() {
@@ -103,12 +148,25 @@ function removeOldPlatforms() {
 }
 
 function addNewBackgroundTiles() {
-    if (backgroundTiles.length < 3) {
-        currentBackgroundTilePosition += 839;
-        var bgLoop = createSprite(currentBackgroundTilePosition, height / 2, 840, 390);
+    if (backgroundTiles.length < 20) {
+        currentBackgroundTilePosition += 350;
+        //var bgLoop = createSprite(currentBackgroundTilePosition, height / 2, 840, 390);
+//        for (var i = 0; i < 4; i++){}
+       object = createSprite(currentBackgroundTilePosition, 319, 25, 40);
+    object.depth = 5;
+    object.addImage(wave); 
+//               object = createSprite(100 + currentBackgroundTilePosition, 300, 25, 40);
+//    object.depth = 5;
+//    object.addImage(wave);
+////        bgLoop.addAnimation('bg', gameBackground);
+//        //bgLoop.depth = 1;
+//        //backgroundTiles.add(bgLoop);
+//                    object = createSprite(500 + currentBackgroundTilePosition, 300, 25, 40);
+//    object.depth = 5;
+//    object.addImage(wave);
 //        bgLoop.addAnimation('bg', gameBackground);
-        bgLoop.depth = 1;
-        backgroundTiles.add(bgLoop);
+//        bgLoop.depth = 1;
+        backgroundTiles.add(object);
     }
 }
 
@@ -175,3 +233,29 @@ function updateScore() {
     textAlign(CENTER);
     text(playerScore, camera.position.x + 350, camera.position.y + 160);
 }
+
+function serverConnected() {
+    console.log("connected");
+}
+
+function portOpen() {
+    console.log("port open");
+}
+
+function portClose() {
+    console.log("port close");
+}
+
+function serialError() {
+    console.log("error");
+}
+
+function serialEvent() {
+    var currentString = serial.readLine();
+    trim(currentString);
+    if (!currentString) {
+        return;
+    }
+    sensorValue = currentString;
+}
+
