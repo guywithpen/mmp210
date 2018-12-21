@@ -26,6 +26,7 @@ var serial;
 var portName = "COM8";
 var sensorValue;
 var isPressed = false;
+var ocean;
 
 
 function setup() {
@@ -56,6 +57,7 @@ function setup() {
 function preload() {
     mordy = loadImage("smolmord.png");
     wave = loadImage("smolwave.png");
+    ocean = loadImage("ocean.png");
 }
 
 function draw() {
@@ -63,6 +65,7 @@ function draw() {
      //console.log(runner.position.y);
     if (!gameOver) { 
         background(200);
+        image(ocean,camera.position.x - width/2, 0,width, height);
         drawSprites();
 //        addNewPlatforms();
         runner.velocity.y += gravity;
@@ -70,6 +73,7 @@ function draw() {
         jumpDetection();
         runner.velocity.x = runnerSpeed;
         camera.position.x = runner.position.x + 300;
+        
         removeOldPlatforms();
         addNewBackgroundTiles();
         removeOldBackgroundTiles();
@@ -154,7 +158,7 @@ function addNewBackgroundTiles() {
         currentBackgroundTilePosition += 350;
         //var bgLoop = createSprite(currentBackgroundTilePosition, height / 2, 840, 390);
 //        for (var i = 0; i < 4; i++){}
-       object = createSprite(currentBackgroundTilePosition, 319, 25, 40);
+       object = createSprite(currentBackgroundTilePosition, 430, 25, 40);
     object.depth = 5;
     object.addImage(wave); 
 //               object = createSprite(100 + currentBackgroundTilePosition, 300, 25, 40);
